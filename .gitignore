@@ -1,3 +1,12 @@
 /BymetooBotones/nbproject/private/
 /BymetooBotones/build/
 /ByMeToo/dist/
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Compilación y build
+target/
+build/
+*.class
+*.jar
