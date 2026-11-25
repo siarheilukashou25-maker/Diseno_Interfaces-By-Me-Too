@@ -4,8 +4,8 @@ package com.bymetoo.componentes;
  * Los tres estilos de botón que hay en el boceto.
  * <ul>
  *   <li>MENU: sin borde (Inicio y Perfil).</li>
- *   <li>CONTORNO_SUAVE: borde gris (Compartir y Gastos).</li>
- *   <li>CONTORNO: borde oscuro (Repartos, Nueva compra, Resumen y Salir).</li>
+ *   <li>CONTORNO_SUAVE: con borde (Compartir y Gastos).</li>
+ *   <li>CONTORNO: con borde (Repartos, Nueva compra, Resumen y Salir).</li>
  * </ul>
  *
  * <pre>{@code
@@ -19,9 +19,9 @@ public enum EstiloBoton {
     /** Botón de menú sin borde. */
     MENU,
 
-    /** Botón con borde gris. */
+    /** Botón con borde (Compartir y Gastos). */
     CONTORNO_SUAVE,
 
-    /** Botón con borde oscuro. */
+    /** Botón con borde (Repartos, Nueva compra, Resumen y Salir). */
     CONTORNO
 }
