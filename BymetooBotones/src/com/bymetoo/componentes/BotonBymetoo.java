@@ -205,6 +205,9 @@ public abstract sealed class BotonBymetoo extends JPanel implements Serializable
         etiqueta.setIconTextGap(SEPARACION_ICONO_POR_DEFECTO);
         etiqueta.setBorder(new EmptyBorder(0, 14, 0, 14));
         etiqueta.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
+        // Para que el texto se vea tal cual y no se interprete como HTML
+        // (si no, un texto con <html> podría cambiar el aspecto o cargar imágenes de internet)
+        etiqueta.putClientProperty("html.disable", Boolean.TRUE);
         add(etiqueta, BorderLayout.CENTER);
     }
 
@@ -390,7 +393,9 @@ public abstract sealed class BotonBymetoo extends JPanel implements Serializable
     protected Window crearVentana(String nombreClase) {
         Class<?> clase;
         try {
-            clase = Class.forName(nombreClase, true, cargadorDeClases());
+            // false: solo se busca la clase, no se ejecuta nada suyo (como los bloques static)
+            // hasta saber que es una ventana. Se inicializa después, al crearla.
+            clase = Class.forName(nombreClase, false, cargadorDeClases());
         } catch (ClassNotFoundException e) {
             throw new IllegalStateException("No se encuentra la ventana '" + nombreClase
                     + "'. Revisa la propiedad ventanaDestino de " + getClass().getSimpleName(), e);
