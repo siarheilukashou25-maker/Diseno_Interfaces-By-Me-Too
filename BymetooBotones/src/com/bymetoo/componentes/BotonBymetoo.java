@@ -78,20 +78,26 @@ public abstract sealed class BotonBymetoo extends JPanel implements Serializable
 
     // Colores y medidas por defecto, sacados del boceto de Elias
 
-    /** Color de fondo normal (blanco). */
-    public static final Color COLOR_FONDO_POR_DEFECTO = Color.WHITE;
-    /** Color gris clarito cuando pasas el ratón por encima. */
-    public static final Color COLOR_HOVER_POR_DEFECTO = new Color(0xF6, 0xF7, 0xF6);
-    /** Color verde cuando el botón está activo. */
-    public static final Color COLOR_ACTIVO_POR_DEFECTO = new Color(0x80, 0xD9, 0xA8);
-    /** Color del borde oscuro. */
-    public static final Color COLOR_BORDE_OSCURO = new Color(0x1E, 0x1E, 0x1E);
-    /** Color del borde gris (Compartir y Gastos). */
-    public static final Color COLOR_BORDE_SUAVE = new Color(0xD6, 0xD6, 0xD6);
-    /** Color del texto y del icono. */
-    public static final Color COLOR_TEXTO_POR_DEFECTO = new Color(0x11, 0x11, 0x11);
-    /** Lo redondeadas que son las esquinas. */
-    public static final int RADIO_BORDE_POR_DEFECTO = 4;
+    /** Color de fondo blanco roto (#FAFAFA). */
+    public static final Color COLOR_FONDO_POR_DEFECTO = new Color(0xFA, 0xFA, 0xFA);
+    
+    /** Color en hover (mantiene #FAFAFA en botones de grupo, o tinte sutil). */
+    public static final Color COLOR_HOVER_POR_DEFECTO = new Color(0xFA, 0xFA, 0xFA);
+    
+    /** Color verde menta cuando el botón está activo (#81DAAB). */
+    public static final Color COLOR_ACTIVO_POR_DEFECTO = new Color(0x81, 0xDA, 0xAB);
+    
+    /** Color de acento / borde oscuro (#1A202C o #3EB37E si buscas el verde oscuro). */
+    public static final Color COLOR_BORDE_OSCURO = new Color(0x1A, 0x20, 0x2C);
+    
+    /** Color del borde gris divisor (#E2E8E5). */
+    public static final Color COLOR_BORDE_SUAVE = new Color(0xE2, 0xE8, 0xE5);
+    
+    /** Color del texto e icono (#1A202C). */
+    public static final Color COLOR_TEXTO_POR_DEFECTO = new Color(0x1A, 0x20, 0x2C);
+    
+    /** Lo redondeadas que son las esquinas (12px según el diseño). */
+    public static final int RADIO_BORDE_POR_DEFECTO = 12;
 
     private static final int ALTO_CONTORNO = 38;
     private static final int ALTO_MENU = 50;
