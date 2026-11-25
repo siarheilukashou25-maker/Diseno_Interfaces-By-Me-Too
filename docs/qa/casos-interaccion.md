@@ -2,8 +2,8 @@
 
 Tarea padre: **DI-3.2** (#134) · Issue #135 · Componente: `BotonBymetoo` y sus 8 botones · Relacionado: [`plan-pruebas.md`](plan-pruebas.md)
 
-**Versión:** 2.0 (24/11/2026) · **Estado:** Listo para revisión.
-La v1 (20/11) usaba marcadores `EV_*` porque DI-3.2.2 no estaba hecha. Ya está hecha (Roberto, 22/11), así que los marcadores se han cambiado por los eventos reales.
+**Versión:** 3.0 (25/11/2026) · **Estado:** Ejecutado: 38/38 casos pasan (sección 5).
+La v1 (20/11) usaba marcadores `EV_*` porque DI-3.2.2 no estaba hecha. La v2 (24/11) los cambió por los eventos reales de DI-3.2.2 (#152, Roberto, 22/11). La v3 (25/11) ajusta CI-19 al nuevo diseño del PR #195, cierra los puntos de la sección 4 y añade la trazabilidad y el registro de ejecución.
 
 ## 1. Eventos del componente
 
@@ -72,7 +72,7 @@ Columnas: **ID** · **Acción** · **Precondición** · **Resultado esperado** �
 |---|---|---|---|---|
 | CI-17 | Mover el puntero sobre `BotonInicio` (`MENU`) | PRE-1, PRE-2 | Estado `HOVER`; se pinta el fondo `colorHover`; cursor de mano | EC `NORMAL→HOVER` ×1 |
 | CI-18 | Sacar el puntero | CI-17 hecho | Vuelve a `NORMAL` | EC `HOVER→NORMAL` ×1 |
-| CI-19 | Mover el puntero sobre `BotonCompartir` (`CONTORNO_SUAVE`) | PRE-1, PRE-2 | Estado `HOVER`; el fondo sigue `#FAFAFA` (ver O-1 del plan) | EC `NORMAL→HOVER` ×1 |
+| CI-19 | Mover el puntero sobre `BotonCompartir` (`CONTORNO_SUAVE`) | PRE-1, PRE-2 | Estado `HOVER`; el fondo pasa a verde `#81DAAB` (corregido en #188 / PR #195) | EC `NORMAL→HOVER` ×1 |
 | CI-20 | Entrar y salir 5 veces seguidas | PRE-1, PRE-2 | Termina en `NORMAL`; sin estados mezclados | EC ×10, alternando `NORMAL→HOVER` y `HOVER→NORMAL` |
 | CI-21 | Hover sobre un botón activo | PRE-4, PRE-2 | Se mantiene `ACTIVO` | EC — |
 | CI-22 | Salir del botón activo | CI-21 hecho | Se mantiene `ACTIVO` | EC — |
@@ -103,23 +103,60 @@ Columnas: **ID** · **Acción** · **Precondición** · **Resultado esperado** �
 | CI-37 | `setTexto(null)` | PRE-1, PRE-2 | El texto pasa a `""`; sin excepción | PC `PROP_TEXTO` ×1 |
 | CI-38 | Listener que se da de baja a sí mismo dentro de `botonPulsado` | PRE-1, PRE-2 | Sin `ConcurrentModificationException`; en la siguiente pulsación ya no recibe nada | BP ×1 |
 
-## 4. Puntos para decidir con Roberto (DI-3.2.2)
+## 4. Puntos que estaban pendientes de DI-3.2.2
 
-| Punto | Casos afectados |
-|---|---|
-| ¿El doble clic debe pulsar una vez o dos? Hoy pulsa dos | CI-10, CI-11 |
-| ¿Qué pasa si un listener lanza una excepción en `botonPulsado`? Hoy corta el aviso al resto de listeners | EV-10 del plan |
-| Fuera de una ventana (`isDisplayable() = false`) el botón se queda `ACTIVO` tras `pulsar()` | EV-05 del plan |
+| Punto | Casos | Situación a 25/11 |
+|---|---|---|
+| ¿El doble clic debe pulsar una vez o dos? | CI-10, CI-11, CI-12 | Se mantiene el comportamiento de Swing: **dos pulsaciones**. No es un fallo porque solo se abre **una** ventana destino (CI-11 pasa). Queda anotado como observación O-3. |
+| Un listener que lanza una excepción en `botonPulsado` corta el aviso al resto | EV-10 del plan | Sin cambios en el PR #195. Observación para el informe final (#146). |
+| Fuera de una ventana (`isDisplayable() = false`) el botón se queda `ACTIVO` tras `pulsar()` | EV-05b del plan | Comportamiento documentado y probado (EV-05b). Dentro de una ventana real vuelve a su estado (CI-15). |
 
-## 5. Registro de ejecución
+## 5. Trazabilidad y registro de ejecución
 
-| Fecha | Commit | ID del caso | Resultado (pasado/fallado) | Observaciones / issue |
-|---|---|---|---|---|
-| | | | | |
+Ejecución del **25/11/2026** sobre `main` después del PR #195 (commit `e62ebfb`). Ejecutado en Windows (JDK 26, NetBeans 31) y en Linux (JDK 21, Xvfb), 4 veces seguidas sin fallos aleatorios. Los tests están en `BymetooBotones/test/com/bymetoo/componentes/`.
+
+| Caso | Test que lo comprueba | Resultado |
+|---|---|---|
+| CI-01 | G-02, EV-05 | ✔ |
+| CI-02 | G-07 | ✔ |
+| CI-03, CI-04 | G-03 | ✔ |
+| CI-05, CI-06 | G-04 | ✔ |
+| CI-07 | G-09, N-03 | ✔ |
+| CI-08 | CI-08 (`BotonBymetooInteraccionTest`), EV-09 | ✔ |
+| CI-09 | CI-09 | ✔ |
+| CI-10 | G-08 | ✔ (dos pulsaciones, ver sección 4) |
+| CI-11 | CI-11 | ✔ (una sola ventana) |
+| CI-12 | CI-12 | ✔ |
+| CI-13 | CI-13 | ✔ |
+| CI-14 | CI-14, EV-08 | ✔ |
+| CI-15 | CI-15 | ✔ |
+| CI-16 | CI-16 | ✔ |
+| CI-17, CI-18 | G-01, E-01/E-02, P-06 | ✔ |
+| CI-19 | O-1a, E-01/E-02 | ✔ (antes fallaba: #188) |
+| CI-20 | CI-20, EV-03 | ✔ |
+| CI-21, CI-22 | CI-21/CI-22, E-09 | ✔ |
+| CI-23 | G-06, EV-06 | ✔ |
+| CI-24 | CI-24 | ✔ |
+| CI-25 | E-11, P-07/P-08 | ✔ |
+| CI-26 | EV-06 | ✔ |
+| CI-27 | G-06 | ✔ |
+| CI-28 | N-06 | ✔ |
+| CI-29 | E-07/E-08, P-09 | ✔ |
+| CI-30 | E-07/E-08 | ✔ |
+| CI-31 | E-10 | ✔ |
+| CI-32 | CI-32 | ✔ |
+| CI-33 | EV-02 | ✔ |
+| CI-34 | CI-34 | ✔ |
+| CI-35 | L-09 | ✔ |
+| CI-36 | L-12 | ✔ |
+| CI-37 | L-03, EV-11 | ✔ |
+| CI-38 | CI-38 (`BotonBymetooEventosTest`) | ✔ |
+
+**Resultado: 38/38 casos pasan.** Los tests con ratón real (G-* y `BotonBymetooInteraccionTest`) se han ejecutado 4 veces seguidas sin fallos aleatorios.
 
 ## 6. Fuentes
 
-- Código de `BotonBymetoo`, `BotonBymetooEvent` y `BotonBymetooListener` (ramas `roberto-branch` y `elias-branch`, 22/11/2026) y `BymetooBotones/README.md`.
+- Código de `BotonBymetoo`, `BotonBymetooEvent` y `BotonBymetooListener` (`main` tras el PR #195, 25/11/2026) y `BymetooBotones/README.md`.
 - Issues #135 (DI-3.2.3), #152 (DI-3.2.2) y #106 (DI-3.2).
 - AssertJ Swing, documentación: https://assertj-swing.readthedocs.io/
 - Oracle, *How to Write a Mouse Listener*: https://docs.oracle.com/javase/tutorial/uiswing/events/mouselistener.html

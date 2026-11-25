@@ -11,9 +11,10 @@
 | DI-3.3.5 (#138) · clics reales con AssertJ Swing | 10 tests nuevos, 10 pasan (3 ejecuciones seguidas, sin fallos aleatorios). |
 | DI-3.4.3 (#141) · .jar y Javadoc | Javadoc: 0 errores y 0 avisos. El .jar coincide con el código fuente. 2 observaciones. |
 | DI-3.5.6 (#145) · seguridad básica | 12 tests, 10 pasan. **2 hallazgos** de gravedad baja. |
-| DI-3.4.5 (#142) · uso de recursos | Programa de medición y valores de referencia. Falta la medición con VisualVM en Windows. |
+| DI-3.2.3 (#135) · casos de interacción | 13 tests nuevos con clics reales para los casos CI que faltaban. 38/38 casos cubiertos. |
+| DI-3.4.5 (#142) · uso de recursos | **Superado** (Windows, JDK 26, VisualVM): 2,3 KB por botón, sin fugas. |
 
-**Total: 131 tests, 129 pasan, 2 fallan a propósito** (hallazgos de seguridad SEG-02 y SEG-04).
+**Total: 144 tests, 142 pasan, 2 fallan a propósito** (hallazgos de seguridad SEG-02 y SEG-04).
 
 > ⚠️ **El PR #195 borra la carpeta `test/`, las librerías de `lib/` y su configuración en `nbproject`.** Hay que recuperarlas antes de fusionarlo o justo después.
 
@@ -65,7 +66,9 @@ Clase `BotonBymetooGuiTest`. Un robot mueve el ratón y pulsa teclas sobre una v
 | G-09 | Clic real: abre la ventana destino y cierra la actual | ✔ |
 | G-10 | Mantener pulsado no pulsa hasta soltar | ✔ |
 
-Sin pantalla se saltan (17 tests en total). **Mientras se ejecutan no hay que tocar el ratón.**
+Además, `BotonBymetooInteraccionTest` (13 tests) prueba con el robot los casos CI de `docs/qa/casos-interaccion.md` que no cubrían los demás tests (doble clic con navegación, 10 clics rápidos, 50 Espacios, 5 entradas y salidas, botón activo, deshabilitar dos veces…). Ver la tabla de trazabilidad en ese documento.
+
+Sin pantalla se saltan (23 tests en total). **Mientras se ejecutan no hay que tocar el ratón.**
 
 ## 5. Comprobación del .jar y del Javadoc (#141)
 
@@ -107,18 +110,20 @@ Con los dos arreglos aplicados, los 121 tests sin pantalla pasan (comprobado).
 
 ## 7. Uso de recursos (#142)
 
-Programa `MedicionRecursos` (en `test/`, se ejecuta con **Run File**). Tiene 4 escenarios separados por pausas, para verlos en VisualVM. Valores de referencia en Linux con JDK 21 (la medición final se hace en Windows con JDK 26 y VisualVM):
+Programa `MedicionRecursos` (en `test/`, se ejecuta con **Run File**): 4 escenarios separados por pausas para verlos en VisualVM 2.2.2. Medición final en **Windows, JDK 26.0.2, NetBeans 31** (25/11/2026), con la referencia de Linux/JDK 21 al lado:
 
-| Escenario | Tiempo | Memoria retenida | Lectura |
+| Escenario | Windows · JDK 26 | Linux · JDK 21 | Lectura |
 |---|---|---|---|
-| E1 crear 1 000 botones | 182 ms | 2,9 MB | ≈ 2,9 KB por botón |
-| E2 10 000 cambios hover/normal | 119 ms | — | ≈ 0,006 ms por cambio |
-| E3 abrir/cerrar 200 ventanas con 8 botones | 1,5 s | 0,4 MB | Sin fuga apreciable |
-| E4 navegar 100 veces con el botón | 1,4 s | 0,05 MB | Sin fuga |
+| E1 crear 1 000 botones | 123 ms · 2,3 MB | 182 ms · 2,9 MB | ≈ 2,3 KB por botón |
+| E2 10 000 cambios hover/normal | 92 ms | 119 ms | ≈ 0,005 ms por cambio |
+| E3 abrir/cerrar 200 ventanas con 8 botones | 3,6 s · 0,39 MB retenidos | 1,5 s · 0,43 MB | Sin fuga |
+| E4 navegar 100 veces con el botón | 4,2 s · 0,03 MB retenidos | 1,4 s · 0,05 MB | Sin fuga |
 
-Al terminar quedan 2 hilos vivos y 1 ventana ya cerrada pendiente del GC.
+Al terminar: 2 hilos vivos y 1 ventana ya cerrada pendiente del GC.
 
-**Criterio de aceptación propuesto:** menos de 10 KB por botón; menos de 1 ms por cambio de estado; tras E3 y E4, el heap vuelve a su nivel después del GC (sin escalera en la gráfica); ningún hilo nuevo al terminar.
+**VisualVM (Monitor):** CPU casi a 0 % durante toda la prueba; heap usado ≈ 5 MB (heap reservado 25 MB) que vuelve al mismo nivel tras cada pico; ≈ 3 500 clases cargadas, estables; 15–20 hilos durante la prueba que bajan al final. No hay «escalera» en el heap, así que no hay fugas de memoria.
+
+**Criterio de aceptación:** < 10 KB por botón ✔ · < 1 ms por cambio de estado ✔ · el heap vuelve a su nivel tras el GC ✔ · ningún hilo nuevo al terminar ✔. **Superado.**
 
 ## 8. Observaciones de diseño (para decidir con el equipo, no son errores)
 
