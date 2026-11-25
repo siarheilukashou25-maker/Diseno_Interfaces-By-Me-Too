@@ -7,6 +7,7 @@ import module java.desktop;
 // Hay dos MouseEvent (el de AWT y uno de XML), así que decimos cuál usamos
 import java.awt.event.MouseEvent;
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;
 
 /**
@@ -67,37 +68,41 @@ public abstract sealed class BotonBymetoo extends JPanel implements Serializable
     public static final String PROP_COLOR_ACTIVO = "colorActivo";
     /** Nombre de la propiedad colorBorde. */
     public static final String PROP_COLOR_BORDE = "colorBorde";
+    /** Nombre de la propiedad colorBordeHover. */
+    public static final String PROP_COLOR_BORDE_HOVER = "colorBordeHover";
     /** Nombre de la propiedad colorTexto. */
     public static final String PROP_COLOR_TEXTO = "colorTexto";
     /** Nombre de la propiedad colorTextoDeshabilitado. */
     public static final String PROP_COLOR_TEXTO_DESHABILITADO = "colorTextoDeshabilitado";
     /** Nombre de la propiedad radioBorde. */
     public static final String PROP_RADIO_BORDE = "radioBorde";
+    /** Nombre de la propiedad separacionIcono. */
+    public static final String PROP_SEPARACION_ICONO = "separacionIcono";
     /** Nombre de la propiedad estado (solo se puede leer). */
     public static final String PROP_ESTADO = "estado";
 
-    // Colores y medidas por defecto, sacados del boceto de Elias
+    // Colores y medidas por defecto (sacados de la tabla de estilos)
 
-    /** Color de fondo blanco roto (#FAFAFA). */
+    /** Fondo de los botones de grupo: #FAFAFA. */
     public static final Color COLOR_FONDO_POR_DEFECTO = new Color(0xFA, 0xFA, 0xFA);
-    
-    /** Color en hover (mantiene #FAFAFA en botones de grupo, o tinte sutil). */
-    public static final Color COLOR_HOVER_POR_DEFECTO = new Color(0xFA, 0xFA, 0xFA);
-    
-    /** Color verde menta cuando el botón está activo (#81DAAB). */
+    /** Hover de Inicio y Perfil: tinte gris rgba(26, 32, 44, 0.08). */
+    public static final Color COLOR_HOVER_POR_DEFECTO = new Color(26, 32, 44, 20);
+    /** Activo de Inicio y Perfil: tinte gris un poco más marcado rgba(26, 32, 44, 0.14). */
+    public static final Color COLOR_ACTIVO_MENU = new Color(26, 32, 44, 36);
+    /** Verde menta de los botones de grupo (activo, hover y al pulsar): #81DAAB. */
     public static final Color COLOR_ACTIVO_POR_DEFECTO = new Color(0x81, 0xDA, 0xAB);
-    
-    /** Color de acento / borde oscuro (#1A202C o #3EB37E si buscas el verde oscuro). */
-    public static final Color COLOR_BORDE_OSCURO = new Color(0x1A, 0x20, 0x2C);
-    
-    /** Color del borde gris divisor (#E2E8E5). */
+    /** Borde de los botones de grupo: #E2E8E5. */
     public static final Color COLOR_BORDE_SUAVE = new Color(0xE2, 0xE8, 0xE5);
-    
-    /** Color del texto e icono (#1A202C). */
+    /** Borde gris oscuro, por si se quiere usar en el hover. */
+    public static final Color COLOR_BORDE_OSCURO = new Color(0x55, 0x55, 0x55);
+    /** Color del texto y del icono: #1A202C. */
     public static final Color COLOR_TEXTO_POR_DEFECTO = new Color(0x1A, 0x20, 0x2C);
-    
-    /** Lo redondeadas que son las esquinas (12px según el diseño). */
-    public static final int RADIO_BORDE_POR_DEFECTO = 12;
+    /** Texto e icono cuando está deshabilitado: el mismo color con menos opacidad. */
+    public static final Color COLOR_TEXTO_DESHABILITADO = new Color(0x1A, 0x20, 0x2C, 100);
+    /** Radio de las esquinas de los botones de grupo (arc = 12). */
+    public static final int RADIO_BORDE_POR_DEFECTO = 6;
+    /** Separación entre el icono y el texto. */
+    public static final int SEPARACION_ICONO_POR_DEFECTO = 12;
 
     private static final int ALTO_CONTORNO = 38;
     private static final int ALTO_MENU = 50;
@@ -133,8 +138,10 @@ public abstract sealed class BotonBymetoo extends JPanel implements Serializable
     private Color colorHover;
     /** Color cuando está activo. */
     private Color colorActivo;
-    /** Color del borde. */
+    /** Color del borde normal. */
     private Color colorBorde;
+    /** Color del borde con el ratón encima, al pulsar o activo. */
+    private Color colorBordeHover;
     /** Color del texto. */
     private Color colorTexto;
     /** Color del texto cuando está deshabilitado. */
@@ -143,6 +150,8 @@ public abstract sealed class BotonBymetoo extends JPanel implements Serializable
     private int radioBorde;
     /** Si el ratón está encima del botón. */
     private boolean hover;
+    /** Si se está manteniendo pulsado el botón con el ratón. */
+    private boolean pulsado;
     /** Estado en el que está el botón ahora mismo. */
     private EstadoBoton estado;
 
@@ -169,14 +178,18 @@ public abstract sealed class BotonBymetoo extends JPanel implements Serializable
         this.cerrarVentanaActual = true;
         this.activo = false;
         this.iconoPersonalizado = null;
+        // Inicio y Perfil (menú) usan tintes grises; los de grupo usan el verde
+        var menu = estilo == EstiloBoton.MENU;
         this.colorFondo = COLOR_FONDO_POR_DEFECTO;
-        this.colorHover = COLOR_HOVER_POR_DEFECTO;
-        this.colorActivo = COLOR_ACTIVO_POR_DEFECTO;
-        this.colorBorde = estilo == EstiloBoton.CONTORNO_SUAVE ? COLOR_BORDE_SUAVE : COLOR_BORDE_OSCURO;
+        this.colorHover = menu ? COLOR_HOVER_POR_DEFECTO : COLOR_ACTIVO_POR_DEFECTO;
+        this.colorActivo = menu ? COLOR_ACTIVO_MENU : COLOR_ACTIVO_POR_DEFECTO;
+        this.colorBorde = COLOR_BORDE_SUAVE;
+        this.colorBordeHover = COLOR_BORDE_SUAVE;
         this.colorTexto = COLOR_TEXTO_POR_DEFECTO;
-        this.colorTextoDeshabilitado = COLOR_TEXTO_POR_DEFECTO;
+        this.colorTextoDeshabilitado = COLOR_TEXTO_DESHABILITADO;
         this.radioBorde = RADIO_BORDE_POR_DEFECTO;
         this.hover = false;
+        this.pulsado = false;
         this.estado = EstadoBoton.NORMAL;
 
         inicializarInterfaz();
@@ -189,7 +202,7 @@ public abstract sealed class BotonBymetoo extends JPanel implements Serializable
         setLayout(new BorderLayout());
         setFocusable(true);
         etiqueta.setHorizontalAlignment(SwingConstants.LEFT);
-        etiqueta.setIconTextGap(12);
+        etiqueta.setIconTextGap(SEPARACION_ICONO_POR_DEFECTO);
         etiqueta.setBorder(new EmptyBorder(0, 14, 0, 14));
         etiqueta.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
         add(etiqueta, BorderLayout.CENTER);
@@ -325,6 +338,9 @@ public abstract sealed class BotonBymetoo extends JPanel implements Serializable
                 if (GraphicsEnvironment.isHeadless()) {
                     throw e;
                 }
+                // Escribimos el error completo en la consola (ventana Output de
+                // NetBeans) para ver en qué línea de la vista ha fallado
+                e.printStackTrace();
                 JOptionPane.showMessageDialog(this, e.getMessage(),
                         "Pantalla no disponible", JOptionPane.WARNING_MESSAGE);
             }
@@ -352,8 +368,12 @@ public abstract sealed class BotonBymetoo extends JPanel implements Serializable
         }
         var nueva = crearVentana(ventanaDestino);
         nueva.setLocationRelativeTo(actual);
+        // Si es un JDialog modal, setVisible se queda esperando hasta que se cierre
+        // el diálogo. En ese caso no cerramos la ventana de atrás, porque si no al
+        // cerrar el diálogo la app se quedaría sin ninguna ventana.
+        var esModal = nueva instanceof Dialog dialogo && dialogo.isModal();
         nueva.setVisible(true);
-        if (cerrarVentanaActual && actual != null && actual != nueva) {
+        if (cerrarVentanaActual && !esModal && actual != null && actual != nueva) {
             actual.dispose();
         }
         return nueva;
@@ -368,20 +388,33 @@ public abstract sealed class BotonBymetoo extends JPanel implements Serializable
      * @throws IllegalStateException si no se encuentra o no se puede crear
      */
     protected Window crearVentana(String nombreClase) {
+        Class<?> clase;
         try {
-            var clase = Class.forName(nombreClase, true, cargadorDeClases());
+            clase = Class.forName(nombreClase, true, cargadorDeClases());
+        } catch (ClassNotFoundException e) {
+            throw new IllegalStateException("No se encuentra la ventana '" + nombreClase
+                    + "'. Revisa la propiedad ventanaDestino de " + getClass().getSimpleName(), e);
+        }
+        // Primero comprobamos que es una ventana, para no crear un JPanel u otra cosa
+        if (!Window.class.isAssignableFrom(clase)) {
+            throw new IllegalStateException(nombreClase + " no es un JFrame/JDialog/Window");
+        }
+        try {
             Object objeto = clase.getDeclaredConstructor().newInstance();
             // pattern matching: si es una ventana la guardamos directamente en "ventana"
             if (objeto instanceof Window ventana) {
                 return ventana;
             }
             throw new IllegalStateException(nombreClase + " no es un JFrame/JDialog/Window");
-        } catch (ClassNotFoundException e) {
-            throw new IllegalStateException("No se encuentra la ventana '" + nombreClase
-                    + "'. Revisa la propiedad ventanaDestino de " + getClass().getSimpleName(), e);
-        } catch (ReflectiveOperationException e) {
+        } catch (NoSuchMethodException e) {
             throw new IllegalStateException("No se pudo crear '" + nombreClase
                     + "'. Necesita un constructor público sin parámetros", e);
+        } catch (InvocationTargetException e) {
+            // El error ha pasado dentro del constructor de la ventana: enseñamos el error real
+            var causa = e.getCause();
+            throw new IllegalStateException("Error al abrir '" + nombreClase + "': " + causa, causa);
+        } catch (ReflectiveOperationException e) {
+            throw new IllegalStateException("No se pudo crear '" + nombreClase + "': " + e, e);
         }
     }
 
@@ -389,12 +422,14 @@ public abstract sealed class BotonBymetoo extends JPanel implements Serializable
 
     /**
      * Pinta el fondo y el borde dependiendo del estilo y del estado.
-     * <p>
-     * NOTA: este dibujo es solo un ejemplo para que se vean los estados del
-     * boceto. El feedback visual lo hace Elias, que puede cambiar este método
-     * o escuchar el evento estadoCambiado y usar los colores (colorHover,
-     * colorActivo...) como quiera.
-     * </p>
+     * <ul>
+     *   <li>Inicio y Perfil (estilo MENU): rectangulares, sin borde y
+     *       transparentes. En hover un tinte gris y activos (o al pulsar) un
+     *       tinte gris un poco más marcado.</li>
+     *   <li>Botones de grupo: esquinas redondeadas, fondo #FAFAFA y borde
+     *       #E2E8E5. En hover, al pulsar y activos se ponen verdes (#81DAAB).</li>
+     * </ul>
+     * Deshabilitados no cambian el fondo, solo el texto se ve más clarito.
      *
      * @param g el objeto Graphics para dibujar
      */
@@ -406,18 +441,31 @@ public abstract sealed class BotonBymetoo extends JPanel implements Serializable
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             var w = getWidth();
             var h = getHeight();
+            var deshabilitado = estado == EstadoBoton.DESHABILITADO;
+            var activoOPulsado = !deshabilitado && (estado == EstadoBoton.ACTIVO || pulsado);
+            var encima = !deshabilitado && estado == EstadoBoton.HOVER;
+
             if (estilo == EstiloBoton.MENU) {
-                // Los del menú no tienen borde, solo fondo gris en hover y activo
-                if (estado == EstadoBoton.HOVER || estado == EstadoBoton.ACTIVO) {
+                // Normal y deshabilitado: transparente (no se pinta nada)
+                if (activoOPulsado) {
+                    g2.setColor(colorActivo);
+                    g2.fillRect(0, 0, w, h);
+                } else if (encima) {
                     g2.setColor(colorHover);
                     g2.fillRect(0, 0, w, h);
                 }
             } else {
                 var forma = new RoundRectangle2D.Double(
                         0.5, 0.5, w - 1.0, h - 1.0, radioBorde * 2.0, radioBorde * 2.0);
-                g2.setColor(estado == EstadoBoton.ACTIVO ? colorActivo : colorFondo);
+                if (activoOPulsado) {
+                    g2.setColor(colorActivo);
+                } else if (encima) {
+                    g2.setColor(colorHover);
+                } else {
+                    g2.setColor(colorFondo);
+                }
                 g2.fill(forma);
-                g2.setColor(colorBorde);
+                g2.setColor(activoOPulsado || encima ? colorBordeHover : colorBorde);
                 g2.setStroke(new BasicStroke(1f));
                 g2.draw(forma);
             }
@@ -672,6 +720,27 @@ public abstract sealed class BotonBymetoo extends JPanel implements Serializable
     }
 
     /**
+     * Devuelve el color del borde con el ratón encima.
+     *
+     * @return el color del borde en hover
+     */
+    public Color getColorBordeHover() {
+        return colorBordeHover;
+    }
+
+    /**
+     * Cambia el color del borde con el ratón encima (también al pulsar y activo).
+     *
+     * @param colorBordeHover el nuevo color (no puede ser null)
+     */
+    public void setColorBordeHover(Color colorBordeHover) {
+        Color anterior = this.colorBordeHover;
+        this.colorBordeHover = Objects.requireNonNull(colorBordeHover, "colorBordeHover");
+        repaint();
+        propertySupport.firePropertyChange(PROP_COLOR_BORDE_HOVER, anterior, colorBordeHover);
+    }
+
+    /**
      * Devuelve el color del texto.
      *
      * @return el color del texto
@@ -702,8 +771,8 @@ public abstract sealed class BotonBymetoo extends JPanel implements Serializable
     }
 
     /**
-     * Cambia el color del texto cuando está deshabilitado. Por defecto es igual
-     * que el normal porque así está en el boceto.
+     * Cambia el color del texto cuando está deshabilitado. Por defecto es el
+     * color normal con menos opacidad.
      *
      * @param colorTextoDeshabilitado el nuevo color (no puede ser null)
      */
@@ -737,6 +806,32 @@ public abstract sealed class BotonBymetoo extends JPanel implements Serializable
         this.radioBorde = radioBorde;
         repaint();
         propertySupport.firePropertyChange(PROP_RADIO_BORDE, anterior, radioBorde);
+    }
+
+    /**
+     * Devuelve la separación entre el icono y el texto.
+     *
+     * @return la separación en píxeles
+     */
+    public int getSeparacionIcono() {
+        return etiqueta.getIconTextGap();
+    }
+
+    /**
+     * Cambia la separación entre el icono y el texto (el iconTextGap).
+     *
+     * @param separacionIcono la separación en píxeles
+     * @throws IllegalArgumentException si es negativa
+     */
+    public void setSeparacionIcono(int separacionIcono) {
+        if (separacionIcono < 0) {
+            throw new IllegalArgumentException("La separación no puede ser negativa: " + separacionIcono);
+        }
+        int anterior = etiqueta.getIconTextGap();
+        etiqueta.setIconTextGap(separacionIcono);
+        revalidate();
+        repaint();
+        propertySupport.firePropertyChange(PROP_SEPARACION_ICONO, anterior, separacionIcono);
     }
 
     /**
@@ -918,7 +1013,9 @@ public abstract sealed class BotonBymetoo extends JPanel implements Serializable
         @Override
         public void mouseExited(MouseEvent e) {
             hover = false;
+            pulsado = false;
             actualizarEstado();
+            repaint();
         }
 
         @Override
@@ -926,10 +1023,17 @@ public abstract sealed class BotonBymetoo extends JPanel implements Serializable
             if (isEnabled() && isRequestFocusEnabled()) {
                 requestFocusInWindow();
             }
+            // mientras se mantiene pulsado se pinta con el color de pulsar
+            if (isEnabled() && e.getButton() == MouseEvent.BUTTON1) {
+                pulsado = true;
+                repaint();
+            }
         }
 
         @Override
         public void mouseReleased(MouseEvent e) {
+            pulsado = false;
+            repaint();
             // solo cuenta si se suelta con el botón izquierdo encima del botón
             if (e.getButton() == MouseEvent.BUTTON1 && contains(e.getPoint())) {
                 pulsar();
