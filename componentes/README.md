@@ -23,7 +23,6 @@ deshabilitado al añadirse a la ventana.
 
 ## Estructura
 
-```text
 componentes/
 ├── src/
 │   ├── com/bymetoo/componentes/
