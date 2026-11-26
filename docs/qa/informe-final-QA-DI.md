@@ -20,7 +20,7 @@
 
 ## 2. Tests automáticos
 
-Carpeta `BymetooBotones/test/com/bymetoo/componentes/`. JUnit 5 (ejecutado desde NetBeans con `@RunWith(JUnitPlatform.class)`) y AssertJ Swing para los clics reales.
+Carpeta `componentes/test/com/bymetoo/componentes/`. JUnit 5 (ejecutado desde NetBeans con `@RunWith(JUnitPlatform.class)`) y AssertJ Swing para los clics reales.
 
 | Clase | Qué prueba | Tests | Pasan |
 |---|---|---|---|
@@ -52,7 +52,7 @@ Carpeta `BymetooBotones/test/com/bymetoo/componentes/`. JUnit 5 (ejecutado desde
 |---|---|---|---|---|
 | **[nº]** | SEG-02: `crearVentana()` ejecuta el bloque `static` de clases que no son ventanas | Baja | `Class.forName(nombre, false, …)` | **[ACTUALIZAR]** |
 | **[nº]** | SEG-04: el texto con `<html>` se interpreta | Baja | `etiqueta.putClientProperty("html.disable", Boolean.TRUE)` | **[ACTUALIZAR]** |
-| **[nº]** | La app enlaza el .jar con ruta absoluta (`C:\Users\12081\...`) | Alta | Ruta relativa `../BymetooBotones/dist/BymetooBotones.jar` | **[ACTUALIZAR]** |
+| **[nº]** | La app enlaza el .jar con ruta absoluta (`C:\Users\12081\...`) | Alta | Ruta relativa `Jar/BymetooBotones.jar` (copia en `ByMeToo/Jar/`) | **[ACTUALIZAR]** |
 
 Con los dos arreglos de seguridad aplicados, todos los tests pasan (comprobado el 25/11).
 

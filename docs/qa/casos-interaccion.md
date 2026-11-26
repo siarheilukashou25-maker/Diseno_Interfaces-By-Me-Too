@@ -113,7 +113,7 @@ Columnas: **ID** · **Acción** · **Precondición** · **Resultado esperado** �
 
 ## 5. Trazabilidad y registro de ejecución
 
-Ejecución del **25/11/2026** sobre `main` después del PR #195 (commit `e62ebfb`). Ejecutado en Windows (JDK 26, NetBeans 31) y en Linux (JDK 21, Xvfb), 4 veces seguidas sin fallos aleatorios. Los tests están en `BymetooBotones/test/com/bymetoo/componentes/`.
+Ejecución del **25/11/2026** sobre `main` después del PR #195 (commit `e62ebfb`). Ejecutado en Windows (JDK 26, NetBeans 31) y en Linux (JDK 21, Xvfb), 4 veces seguidas sin fallos aleatorios. Los tests están en `componentes/test/com/bymetoo/componentes/`.
 
 | Caso | Test que lo comprueba | Resultado |
 |---|---|---|
@@ -156,7 +156,7 @@ Ejecución del **25/11/2026** sobre `main` después del PR #195 (commit `e62ebfb
 
 ## 6. Fuentes
 
-- Código de `BotonBymetoo`, `BotonBymetooEvent` y `BotonBymetooListener` (`main` tras el PR #195, 25/11/2026) y `BymetooBotones/README.md`.
+- Código de `BotonBymetoo`, `BotonBymetooEvent` y `BotonBymetooListener` (`main` tras el PR #195, 25/11/2026) y `componentes/README.md`.
 - Issues #135 (DI-3.2.3), #152 (DI-3.2.2) y #106 (DI-3.2).
 - AssertJ Swing, documentación: https://assertj-swing.readthedocs.io/
 - Oracle, *How to Write a Mouse Listener*: https://docs.oracle.com/javase/tutorial/uiswing/events/mouselistener.html

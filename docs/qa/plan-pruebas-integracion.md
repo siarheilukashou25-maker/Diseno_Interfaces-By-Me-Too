@@ -18,7 +18,7 @@ Los tests unitarios y de clics reales (144 tests) prueban el componente aislado.
 | `vista/icons/RepartosView.java` | Copia distinta de `vista/RepartosView.java` | Aclarar cuál es la buena antes de cambiar botones |
 | `ResumenView`: «Pagar con Bizum» usa texto `<html>` | Es `JButton`, no `BotonBymetoo` | Si se cambia por un `BotonBymetoo` y se aplica el arreglo de SEG-04, el salto de línea dejará de funcionar |
 
-**Requisitos para empezar:** #161 hecho, ruta relativa `../BymetooBotones/dist/BymetooBotones.jar`, Clean and Build de los dos proyectos sin errores.
+**Requisitos para empezar:** #161 hecho, ruta relativa `Jar/BymetooBotones.jar` (copia en `ByMeToo/Jar/`), Clean and Build de los dos proyectos sin errores.
 
 ## 3. Qué botón va en cada ventana
 
