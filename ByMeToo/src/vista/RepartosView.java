@@ -61,8 +61,6 @@ public class RepartosView extends javax.swing.JFrame {
             }
         };
         lblConectado20 = new javax.swing.JLabel();
-        navGrupos20 = new javax.swing.JButton();
-        navPerfil20 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel() {
             {
                 setOpaque(false);
@@ -179,10 +177,12 @@ public class RepartosView extends javax.swing.JFrame {
         jButton10 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        btnResumen = new javax.swing.JButton();
+        botonGastos1 = new com.bymetoo.componentes.BotonGastos();
+        botonRepartos1 = new com.bymetoo.componentes.BotonRepartos();
+        botonNuevaCompra1 = new com.bymetoo.componentes.BotonNuevaCompra();
+        botonResumen1 = new com.bymetoo.componentes.BotonResumen();
+        botonInicio1 = new com.bymetoo.componentes.BotonInicio();
+        botonPerfil1 = new com.bymetoo.componentes.BotonPerfil();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -194,28 +194,6 @@ public class RepartosView extends javax.swing.JFrame {
         lblConectado20.setForeground(new java.awt.Color(26, 32, 44));
         lblConectado20.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblConectado20.setText("<html>Conectado como <b>SIARHEI LUKASHOU</b></html>");
-
-        navGrupos20.setBackground(new java.awt.Color(250, 250, 250));
-        navGrupos20.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
-        navGrupos20.setForeground(new java.awt.Color(26, 32, 44));
-        navGrupos20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/icons/users.png"))); // NOI18N
-        navGrupos20.setText("Inicio");
-        navGrupos20.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 6, 3, 6));
-        navGrupos20.setBorderPainted(false);
-        navGrupos20.setContentAreaFilled(false);
-        navGrupos20.setFocusPainted(false);
-        navGrupos20.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-
-        navPerfil20.setBackground(new java.awt.Color(250, 250, 250));
-        navPerfil20.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
-        navPerfil20.setForeground(new java.awt.Color(26, 32, 44));
-        navPerfil20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/icons/user.png"))); // NOI18N
-        navPerfil20.setText("Perfil");
-        navPerfil20.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 6, 3, 6));
-        navPerfil20.setBorderPainted(false);
-        navPerfil20.setContentAreaFilled(false);
-        navPerfil20.setFocusPainted(false);
-        navPerfil20.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -418,73 +396,58 @@ public class RepartosView extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(26, 32, 44));
         jLabel2.setText("Piso 1");
 
-        jButton5.setBackground(new java.awt.Color(250, 250, 250));
-        jButton5.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(26, 32, 44));
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/icons/icons8-billetes-16.png"))); // NOI18N
-        jButton5.setText("Gastos");
-        jButton5.addActionListener(this::jButton5ActionPerformed);
-
-        jButton3.setBackground(new java.awt.Color(250, 250, 250));
-        jButton3.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(26, 32, 44));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/icons/icons8-apreton-de-manos-corazon-16.png"))); // NOI18N
-        jButton3.setText("Repartos");
-
-        jButton4.setBackground(new java.awt.Color(250, 250, 250));
-        jButton4.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(26, 32, 44));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/icons/cart.png"))); // NOI18N
-        jButton4.setText("Nueva compra");
-        jButton4.addActionListener(this::jButton4ActionPerformed);
-
-        btnResumen.setBackground(new java.awt.Color(250, 250, 250));
-        btnResumen.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
-        btnResumen.setForeground(new java.awt.Color(26, 32, 44));
-        btnResumen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/icons/chart.png"))); // NOI18N
-        btnResumen.setText("Resumen");
+        botonRepartos1.addBotonBymetooListener(new com.bymetoo.componentes.BotonBymetooListener() {
+            public void estadoCambiado(com.bymetoo.componentes.BotonBymetooEvent evt) {
+                botonRepartos1EstadoCambiado(evt);
+            }
+            public void botonPulsado(com.bymetoo.componentes.BotonBymetooEvent evt) {
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(111, 111, 111)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(64, 64, 64)
+                        .addGap(111, 111, 111)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel9))))
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(64, 64, 64)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(12, 12, 12)
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel9))))
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(botonGastos1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonRepartos1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonNuevaCompra1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonResumen1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(142, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jButton3)
-                .addGap(0, 0, 0)
-                .addComponent(jButton4)
-                .addGap(0, 0, 0)
-                .addComponent(btnResumen)
-                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnResumen, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botonGastos1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(botonResumen1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(botonNuevaCompra1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(botonRepartos1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(9, 9, 9)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(14, 14, 14)
@@ -498,19 +461,26 @@ public class RepartosView extends javax.swing.JFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(74, Short.MAX_VALUE))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
+
+        botonInicio1.addBotonBymetooListener(new com.bymetoo.componentes.BotonBymetooListener() {
+            public void estadoCambiado(com.bymetoo.componentes.BotonBymetooEvent evt) {
+                botonInicio1EstadoCambiado(evt);
+            }
+            public void botonPulsado(com.bymetoo.componentes.BotonBymetooEvent evt) {
+            }
+        });
 
         javax.swing.GroupLayout toolbarPanel19Layout = new javax.swing.GroupLayout(toolbarPanel19);
         toolbarPanel19.setLayout(toolbarPanel19Layout);
         toolbarPanel19Layout.setHorizontalGroup(
             toolbarPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(toolbarPanel19Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(navGrupos20, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
-                .addComponent(navPerfil20, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(143, 143, 143)
+                .addComponent(botonInicio1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(botonPerfil1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(261, 261, 261)
                 .addComponent(lblConectado20)
                 .addContainerGap())
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -518,14 +488,17 @@ public class RepartosView extends javax.swing.JFrame {
         toolbarPanel19Layout.setVerticalGroup(
             toolbarPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(toolbarPanel19Layout.createSequentialGroup()
-                .addGap(2, 2, 2)
-                .addGroup(toolbarPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(lblConectado20)
-                    .addComponent(navGrupos20)
-                    .addComponent(navPerfil20))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+                .addGroup(toolbarPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(toolbarPanel19Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblConectado20))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, toolbarPanel19Layout.createSequentialGroup()
+                        .addGroup(toolbarPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(botonPerfil1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botonInicio1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, 0)))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -546,13 +519,13 @@ public class RepartosView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void botonInicio1EstadoCambiado(com.bymetoo.componentes.BotonBymetooEvent evt) {//GEN-FIRST:event_botonInicio1EstadoCambiado
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_botonInicio1EstadoCambiado
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void botonRepartos1EstadoCambiado(com.bymetoo.componentes.BotonBymetooEvent evt) {//GEN-FIRST:event_botonRepartos1EstadoCambiado
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_botonRepartos1EstadoCambiado
 
     /**
      * @param args the command line arguments
@@ -580,13 +553,15 @@ public class RepartosView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnResumen;
+    private com.bymetoo.componentes.BotonGastos botonGastos1;
+    private com.bymetoo.componentes.BotonInicio botonInicio1;
+    private com.bymetoo.componentes.BotonNuevaCompra botonNuevaCompra1;
+    private com.bymetoo.componentes.BotonPerfil botonPerfil1;
+    private com.bymetoo.componentes.BotonRepartos botonRepartos1;
+    private com.bymetoo.componentes.BotonResumen botonResumen1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
@@ -608,8 +583,6 @@ public class RepartosView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel lblConectado20;
-    private javax.swing.JButton navGrupos20;
-    private javax.swing.JButton navPerfil20;
     private javax.swing.JPanel toolbarPanel19;
     // End of variables declaration//GEN-END:variables
 }
