@@ -1,5 +1,6 @@
-/BymetooBotones/nbproject/private/
-/BymetooBotones/build/
+/componentes/nbproject/private/
+/componentes/build/
+/componentes/dist/
 /ByMeToo/dist/
 # Sistema operativo
 .DS_Store
@@ -10,3 +11,7 @@ target/
 build/
 *.class
 *.jar
+
+# Excepciones: librerías de test y JAR del componente que usa la app
+!componentes/lib/*.jar
+!ByMeToo/Jar/*.jar

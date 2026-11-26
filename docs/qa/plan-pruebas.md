@@ -51,7 +51,7 @@ Reglas comunes:
 - Para la navegación se crean en `test/` dos ventanas falsas (`VentanaPruebaA`, `VentanaPruebaB`, que heredan de `JFrame` y tienen constructor sin parámetros) y se apunta `ventanaDestino` a ellas.
 - Las pruebas de GUI necesitan pantalla. Sin pantalla se saltan con `Assumptions.assumeFalse(GraphicsEnvironment.isHeadless())`.
 - El proyecto se compila con **Java 25** (`javac.source=25`): usa constructores con código antes de `super()` y la variable `_`. Los tests necesitan el mismo JDK.
-- Las librerías de test se añaden en NetBeans a *Test Libraries* (`javac.test.classpath`) desde una carpeta `BymetooBotones/lib/`. Los tests van en `BymetooBotones/test/com/bymetoo/componentes/`.
+- Las librerías de test se añaden en NetBeans a *Test Libraries* (`javac.test.classpath`) desde una carpeta `componentes/lib/`. Los tests van en `componentes/test/com/bymetoo/componentes/`.
 
 Clases de prueba previstas:
 
@@ -229,8 +229,8 @@ Detectadas al preparar el plan. Se confirman al ejecutar las pruebas y, si falla
 
 ## 6. Ejecución y registro
 
-- Ejecución en NetBeans: *Run → Test Project* (Alt+F6) o `ant test` desde `BymetooBotones/`.
-- Informes JUnit en `BymetooBotones/build/test/results/`. El resumen de cada ejecución se guarda en `docs/qa/` del repositorio.
+- Ejecución en NetBeans: *Run → Test Project* (Alt+F6) o `ant test` desde `componentes/`.
+- Informes JUnit en `componentes/build/test/results/`. El resumen de cada ejecución se guarda en `docs/qa/` del repositorio.
 - Cada ejecución se registra con: fecha, rama/commit, casos ejecutados, pasados, fallados e issues abiertas.
 
 | Fecha | Commit | Casos ejecutados | Pasados | Fallados | Issues |
