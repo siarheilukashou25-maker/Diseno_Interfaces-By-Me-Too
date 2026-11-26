@@ -23,6 +23,7 @@ deshabilitado al añadirse a la ventana.
 
 ## Estructura
 
+```text
 componentes/
 ├── src/
 │   ├── com/bymetoo/componentes/
@@ -195,3 +196,21 @@ La documentación de las clases y métodos públicos se genera mediante Javadoc
 desde el proyecto Ant. La documentación de esta actividad describe la
 suscripción a eventos, el contenido de `BotonBymetooEvent`, la cancelación de
 navegación y la ayuda contextual con F1.
+
+## Pruebas y compilación
+
+El proyecto incorpora pruebas unitarias automatizadas mediante JUnit para verificar el correcto funcionamiento de los componentes.
+
+Las pruebas se ejecutan automáticamente durante el proceso **Clean and Build** de Apache Ant, por lo que no es necesario lanzarlas manualmente antes de generar la biblioteca.
+
+La generación del archivo `BymetooBotones.jar` está condicionada a que todas las pruebas finalicen correctamente. Si alguna prueba falla, el proceso de compilación se interrumpe y no se genera el JAR.
+
+Para ejecutar el proceso desde NetBeans:
+
+1. Abrir el proyecto `componentes`.
+2. Hacer clic derecho sobre el proyecto.
+3. Seleccionar **Clean and Build**.
+
+El archivo JAR generado se encuentra en:
+
+`dist/BymetooBotones.jar`
