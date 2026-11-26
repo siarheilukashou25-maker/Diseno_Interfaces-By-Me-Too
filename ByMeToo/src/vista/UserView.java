@@ -101,8 +101,8 @@ public class UserView extends javax.swing.JFrame {
         };
         toolbarSeparator1 = new javax.swing.JSeparator();
         lblConectado1 = new javax.swing.JLabel();
-        navGrupos = new javax.swing.JButton();
-        navPerfil = new javax.swing.JButton();
+        botonPerfil1 = new com.bymetoo.componentes.BotonPerfil();
+        botonInicio1 = new com.bymetoo.componentes.BotonInicio();
         jPanel2 = new javax.swing.JPanel() {
             {
                 setOpaque(false);
@@ -213,7 +213,7 @@ public class UserView extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        botonSalir1 = new com.bymetoo.componentes.BotonSalir();
 
         jMenu1.setText("Archivo");
         jMenuBar2.add(jMenu1);
@@ -240,53 +240,48 @@ public class UserView extends javax.swing.JFrame {
         lblConectado1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblConectado1.setText("<html>Conectado como <b>SIARHEI LUKASHOU</b></html>");
 
-        navGrupos.setBackground(new java.awt.Color(250, 250, 250));
-        navGrupos.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
-        navGrupos.setForeground(new java.awt.Color(26, 32, 44));
-        navGrupos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/icons/users.png"))); // NOI18N
-        navGrupos.setText("Inicio");
-        navGrupos.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 6, 3, 6));
-        navGrupos.setBorderPainted(false);
-        navGrupos.setContentAreaFilled(false);
-        navGrupos.setFocusPainted(false);
-        navGrupos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        botonPerfil1.addBotonBymetooListener(new com.bymetoo.componentes.BotonBymetooListener() {
+            public void estadoCambiado(com.bymetoo.componentes.BotonBymetooEvent evt) {
+                botonPerfil1EstadoCambiado(evt);
+            }
+            public void botonPulsado(com.bymetoo.componentes.BotonBymetooEvent evt) {
+            }
+        });
 
-        navPerfil.setBackground(new java.awt.Color(250, 250, 250));
-        navPerfil.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
-        navPerfil.setForeground(new java.awt.Color(26, 32, 44));
-        navPerfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/icons/user.png"))); // NOI18N
-        navPerfil.setText("Perfil");
-        navPerfil.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 6, 3, 6));
-        navPerfil.setBorderPainted(false);
-        navPerfil.setContentAreaFilled(false);
-        navPerfil.setFocusPainted(false);
-        navPerfil.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        botonInicio1.addBotonBymetooListener(new com.bymetoo.componentes.BotonBymetooListener() {
+            public void estadoCambiado(com.bymetoo.componentes.BotonBymetooEvent evt) {
+                botonInicio1EstadoCambiado(evt);
+            }
+            public void botonPulsado(com.bymetoo.componentes.BotonBymetooEvent evt) {
+            }
+        });
 
         javax.swing.GroupLayout toolbarPanel1Layout = new javax.swing.GroupLayout(toolbarPanel1);
         toolbarPanel1.setLayout(toolbarPanel1Layout);
         toolbarPanel1Layout.setHorizontalGroup(
             toolbarPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(toolbarPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(navGrupos, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botonInicio1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(toolbarSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botonPerfil1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(navPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(143, 143, 143)
-                .addComponent(lblConectado1)
+                .addComponent(toolbarSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblConectado1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         toolbarPanel1Layout.setVerticalGroup(
             toolbarPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toolbarPanel1Layout.createSequentialGroup()
-                .addGap(2, 2, 2)
-                .addGroup(toolbarPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(toolbarSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblConectado1)
-                    .addComponent(navGrupos)
-                    .addComponent(navPerfil))
-                .addGap(3, 3, 3))
+            .addGroup(toolbarPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(toolbarPanel1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(lblConectado1))
+                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, toolbarPanel1Layout.createSequentialGroup()
+                    .addGap(3, 3, 3)
+                    .addComponent(toolbarSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(toolbarPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addComponent(botonPerfil1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                .addComponent(botonInicio1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -446,11 +441,6 @@ public class UserView extends javax.swing.JFrame {
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        jButton3.setBackground(new java.awt.Color(129, 218, 171));
-        jButton3.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/icons/login.png"))); // NOI18N
-        jButton3.setText("Cerrar sesión");
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -461,11 +451,11 @@ public class UserView extends javax.swing.JFrame {
                     .addComponent(lblInicioTitle, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(352, Short.MAX_VALUE))
+                .addContainerGap(466, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3)
-                .addGap(15, 15, 15))
+                .addComponent(botonSalir1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -476,23 +466,23 @@ public class UserView extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
-                .addComponent(jButton3)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
+                .addComponent(botonSalir1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
         );
 
         javax.swing.GroupLayout sidebarPanelLayout = new javax.swing.GroupLayout(sidebarPanel);
         sidebarPanel.setLayout(sidebarPanelLayout);
         sidebarPanelLayout.setHorizontalGroup(
             sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 978, Short.MAX_VALUE)
             .addComponent(toolbarPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         sidebarPanelLayout.setVerticalGroup(
             sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sidebarPanelLayout.createSequentialGroup()
                 .addComponent(toolbarPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -528,6 +518,14 @@ public class UserView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
 
+    private void botonPerfil1EstadoCambiado(com.bymetoo.componentes.BotonBymetooEvent evt) {//GEN-FIRST:event_botonPerfil1EstadoCambiado
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonPerfil1EstadoCambiado
+
+    private void botonInicio1EstadoCambiado(com.bymetoo.componentes.BotonBymetooEvent evt) {//GEN-FIRST:event_botonInicio1EstadoCambiado
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonInicio1EstadoCambiado
+
     /**
      * @param args the command line arguments
      */
@@ -549,9 +547,11 @@ public class UserView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.bymetoo.componentes.BotonInicio botonInicio1;
+    private com.bymetoo.componentes.BotonPerfil botonPerfil1;
+    private com.bymetoo.componentes.BotonSalir botonSalir1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -573,8 +573,6 @@ public class UserView extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel lblConectado1;
     private javax.swing.JLabel lblInicioTitle;
-    private javax.swing.JButton navGrupos;
-    private javax.swing.JButton navPerfil;
     private javax.swing.JPanel sidebarPanel;
     private javax.swing.JPanel toolbarPanel1;
     private javax.swing.JSeparator toolbarSeparator1;

@@ -61,8 +61,8 @@ public class MainView extends javax.swing.JFrame {
             }
         };
         lblConectado22 = new javax.swing.JLabel();
-        navGrupos22 = new javax.swing.JButton();
-        navPerfil22 = new javax.swing.JButton();
+        botonInicio1 = new com.bymetoo.componentes.BotonInicio();
+        botonPerfil1 = new com.bymetoo.componentes.BotonPerfil();
         jPanel7 = new javax.swing.JPanel() {
             {
                 setOpaque(false);
@@ -258,49 +258,44 @@ public class MainView extends javax.swing.JFrame {
         lblConectado22.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblConectado22.setText("<html>Conectado como <b>SIARHEI LUKASHOU</b></html>");
 
-        navGrupos22.setBackground(new java.awt.Color(129, 218, 171));
-        navGrupos22.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
-        navGrupos22.setForeground(new java.awt.Color(26, 32, 44));
-        navGrupos22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/icons/users.png"))); // NOI18N
-        navGrupos22.setText("Inicio");
-        navGrupos22.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 6, 3, 6));
-        navGrupos22.setBorderPainted(false);
-        navGrupos22.setContentAreaFilled(false);
-        navGrupos22.setFocusPainted(false);
-        navGrupos22.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        botonInicio1.addBotonBymetooListener(new com.bymetoo.componentes.BotonBymetooListener() {
+            public void estadoCambiado(com.bymetoo.componentes.BotonBymetooEvent evt) {
+                botonInicio1EstadoCambiado(evt);
+            }
+            public void botonPulsado(com.bymetoo.componentes.BotonBymetooEvent evt) {
+            }
+        });
 
-        navPerfil22.setBackground(new java.awt.Color(129, 218, 171));
-        navPerfil22.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
-        navPerfil22.setForeground(new java.awt.Color(26, 32, 44));
-        navPerfil22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/icons/user.png"))); // NOI18N
-        navPerfil22.setText("Perfil");
-        navPerfil22.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 6, 3, 6));
-        navPerfil22.setBorderPainted(false);
-        navPerfil22.setContentAreaFilled(false);
-        navPerfil22.setFocusPainted(false);
-        navPerfil22.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        botonPerfil1.addBotonBymetooListener(new com.bymetoo.componentes.BotonBymetooListener() {
+            public void estadoCambiado(com.bymetoo.componentes.BotonBymetooEvent evt) {
+                botonPerfil1EstadoCambiado(evt);
+            }
+            public void botonPulsado(com.bymetoo.componentes.BotonBymetooEvent evt) {
+            }
+        });
 
         javax.swing.GroupLayout toolbarPanel21Layout = new javax.swing.GroupLayout(toolbarPanel21);
         toolbarPanel21.setLayout(toolbarPanel21Layout);
         toolbarPanel21Layout.setHorizontalGroup(
             toolbarPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(toolbarPanel21Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(navGrupos22, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
-                .addComponent(navPerfil22, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(143, 143, 143)
-                .addComponent(lblConectado22, javax.swing.GroupLayout.DEFAULT_SIZE, 680, javax.swing.GroupLayout.DEFAULT_SIZE)
+                .addComponent(botonInicio1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(botonPerfil1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(281, 281, 281)
+                .addComponent(lblConectado22, javax.swing.GroupLayout.DEFAULT_SIZE, 659, javax.swing.GroupLayout.DEFAULT_SIZE)
                 .addContainerGap())
         );
         toolbarPanel21Layout.setVerticalGroup(
             toolbarPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(toolbarPanel21Layout.createSequentialGroup()
-                .addGap(2, 2, 2)
-                .addGroup(toolbarPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(lblConectado22)
-                    .addComponent(navGrupos22)
-                    .addComponent(navPerfil22)))
+                .addGap(7, 7, 7)
+                .addComponent(lblConectado22))
+            .addGroup(toolbarPanel21Layout.createSequentialGroup()
+                .addGroup(toolbarPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(botonInicio1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                    .addComponent(botonPerfil1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jPanel7.setBackground(new java.awt.Color(250, 250, 250));
@@ -410,13 +405,13 @@ public class MainView extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(1064, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(63, 63, 63)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(1036, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addContainerGap()
@@ -558,7 +553,7 @@ public class MainView extends javax.swing.JFrame {
                     .addComponent(accionesCard3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 972, Short.MAX_VALUE)
                         .addComponent(jButton4)
                         .addContainerGap())
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -566,7 +561,7 @@ public class MainView extends javax.swing.JFrame {
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(62, 62, 62)
+                .addGap(15, 15, 15)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(jButton4))
@@ -574,7 +569,7 @@ public class MainView extends javax.swing.JFrame {
                 .addComponent(accionesCard3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -592,7 +587,7 @@ public class MainView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(toolbarPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE))
+                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE))
         );
 
         pack();
@@ -605,6 +600,14 @@ public class MainView extends javax.swing.JFrame {
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField4ActionPerformed
+
+    private void botonInicio1EstadoCambiado(com.bymetoo.componentes.BotonBymetooEvent evt) {//GEN-FIRST:event_botonInicio1EstadoCambiado
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonInicio1EstadoCambiado
+
+    private void botonPerfil1EstadoCambiado(com.bymetoo.componentes.BotonBymetooEvent evt) {//GEN-FIRST:event_botonPerfil1EstadoCambiado
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonPerfil1EstadoCambiado
 
     /**
      * @param args the command line arguments
@@ -633,6 +636,8 @@ public class MainView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel accionesCard3;
+    private com.bymetoo.componentes.BotonInicio botonInicio1;
+    private com.bymetoo.componentes.BotonPerfil botonPerfil1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
@@ -654,8 +659,6 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JLabel lblConectado22;
-    private javax.swing.JButton navGrupos22;
-    private javax.swing.JButton navPerfil22;
     private javax.swing.JPanel toolbarPanel21;
     // End of variables declaration//GEN-END:variables
 }

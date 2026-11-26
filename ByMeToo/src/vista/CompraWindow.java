@@ -177,13 +177,13 @@ public class CompraWindow extends javax.swing.JFrame {
         lblRepartoPendiente = new javax.swing.JLabel();
         btnMarcarPagado = new javax.swing.JButton();
         btnEditarReparto = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        btnResumen = new javax.swing.JButton();
         btnAjustes = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
+        botonGastos1 = new com.bymetoo.componentes.BotonGastos();
+        botonRepartos1 = new com.bymetoo.componentes.BotonRepartos();
+        botonNuevaCompra1 = new com.bymetoo.componentes.BotonNuevaCompra();
+        botonResumen1 = new com.bymetoo.componentes.BotonResumen();
         topNavPanel = new javax.swing.JPanel() {
             {
                 setOpaque(false);
@@ -217,8 +217,8 @@ public class CompraWindow extends javax.swing.JFrame {
             }
         };
         lblTopUsuario = new javax.swing.JLabel();
-        jButton6 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        botonPerfil1 = new com.bymetoo.componentes.BotonPerfil();
+        botonInicio2 = new com.bymetoo.componentes.BotonInicio();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cómprame! — Detalle de compra");
@@ -553,31 +553,6 @@ public class CompraWindow extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jButton5.setBackground(new java.awt.Color(250, 250, 250));
-        jButton5.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(26, 32, 44));
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/icons/icons8-billetes-16.png"))); // NOI18N
-        jButton5.setText("Gastos");
-
-        jButton4.setBackground(new java.awt.Color(250, 250, 250));
-        jButton4.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(26, 32, 44));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/icons/cart.png"))); // NOI18N
-        jButton4.setText("Nueva compra");
-        jButton4.addActionListener(this::jButton4ActionPerformed);
-
-        jButton3.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(26, 32, 44));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/icons/icons8-apreton-de-manos-corazon-16.png"))); // NOI18N
-        jButton3.setText("Repartos");
-        jButton3.setOpaque(true);
-
-        btnResumen.setBackground(new java.awt.Color(250, 250, 250));
-        btnResumen.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
-        btnResumen.setForeground(new java.awt.Color(26, 32, 44));
-        btnResumen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/icons/chart.png"))); // NOI18N
-        btnResumen.setText("Resumen");
-
         btnAjustes.setBackground(new java.awt.Color(250, 250, 250));
         btnAjustes.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
         btnAjustes.setForeground(new java.awt.Color(26, 32, 44));
@@ -597,6 +572,14 @@ public class CompraWindow extends javax.swing.JFrame {
         jButton7.setText("Repartos");
         jButton7.setOpaque(true);
 
+        botonRepartos1.addBotonBymetooListener(new com.bymetoo.componentes.BotonBymetooListener() {
+            public void estadoCambiado(com.bymetoo.componentes.BotonBymetooEvent evt) {
+                botonRepartos1EstadoCambiado(evt);
+            }
+            public void botonPulsado(com.bymetoo.componentes.BotonBymetooEvent evt) {
+            }
+        });
+
         javax.swing.GroupLayout compraPanel7Layout = new javax.swing.GroupLayout(compraPanel7);
         compraPanel7.setLayout(compraPanel7Layout);
         compraPanel7Layout.setHorizontalGroup(
@@ -605,12 +588,24 @@ public class CompraWindow extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addGroup(compraPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(compraPanel7Layout.createSequentialGroup()
+                        .addComponent(botonGastos1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonRepartos1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonNuevaCompra1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonResumen1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAjustes, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(compraPanel7Layout.createSequentialGroup()
                         .addComponent(btnVolver7)
                         .addGap(16, 16, 16)
                         .addGroup(compraPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblCompraTitulo7)
+                            .addGroup(compraPanel7Layout.createSequentialGroup()
+                                .addGap(146, 146, 146)
+                                .addComponent(lblCompraTitulo7))
                             .addComponent(lblCompraFecha7))
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(compraPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblTotalTitulo7)
                             .addComponent(lblTotal7))
@@ -629,16 +624,6 @@ public class CompraWindow extends javax.swing.JFrame {
                                 .addGap(276, 276, 276)
                                 .addComponent(btnSalir)))
                         .addGap(6, 6, 6))))
-            .addGroup(compraPanel7Layout.createSequentialGroup()
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jButton3)
-                .addGap(0, 0, 0)
-                .addComponent(jButton4)
-                .addGap(0, 0, 0)
-                .addComponent(btnResumen)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAjustes, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(compraPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(compraPanel7Layout.createSequentialGroup()
                     .addGap(472, 472, 472)
@@ -648,14 +633,15 @@ public class CompraWindow extends javax.swing.JFrame {
         compraPanel7Layout.setVerticalGroup(
             compraPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(compraPanel7Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addGroup(compraPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(compraPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnResumen, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnAjustes, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(compraPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(compraPanel7Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(btnAjustes, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(botonGastos1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, compraPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(botonResumen1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                        .addComponent(botonNuevaCompra1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(botonRepartos1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(compraPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(btnVolver7)
@@ -691,7 +677,7 @@ public class CompraWindow extends javax.swing.JFrame {
             contentPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contentPanel7Layout.createSequentialGroup()
                 .addComponent(compraPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 5, Short.MAX_VALUE))
         );
         contentPanel7Layout.setVerticalGroup(
             contentPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -704,41 +690,23 @@ public class CompraWindow extends javax.swing.JFrame {
         lblTopUsuario.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblTopUsuario.setText("<html>Conectado como <b>SIARHEI LUKASHOU</b></html>");
 
-        jButton6.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(26, 32, 44));
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/icons/user.png"))); // NOI18N
-        jButton6.setText("Perfil");
-        jButton6.setOpaque(true);
-        jButton6.addActionListener(this::jButton6ActionPerformed);
-
-        jButton8.setBackground(new java.awt.Color(250, 250, 250));
-        jButton8.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
-        jButton8.setForeground(new java.awt.Color(26, 32, 44));
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/icons/home.png"))); // NOI18N
-        jButton8.setText("Inicio");
-        jButton8.addActionListener(this::jButton8ActionPerformed);
-
         javax.swing.GroupLayout topNavPanelLayout = new javax.swing.GroupLayout(topNavPanel);
         topNavPanel.setLayout(topNavPanelLayout);
         topNavPanelLayout.setHorizontalGroup(
             topNavPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(topNavPanelLayout.createSequentialGroup()
+                .addComponent(botonInicio2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jButton8)
-                .addGap(0, 0, 0)
-                .addComponent(jButton6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 324, Short.MAX_VALUE)
-                .addComponent(lblTopUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 569, javax.swing.GroupLayout.DEFAULT_SIZE)
+                .addComponent(botonPerfil1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 312, Short.MAX_VALUE)
+                .addComponent(lblTopUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 508, javax.swing.GroupLayout.DEFAULT_SIZE)
                 .addGap(10, 10, 10))
         );
         topNavPanelLayout.setVerticalGroup(
-            topNavPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(topNavPanelLayout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addGroup(topNavPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblTopUsuario, javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jButton6, javax.swing.GroupLayout.Alignment.CENTER)))
+            topNavPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(lblTopUsuario)
+            .addComponent(botonPerfil1, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+            .addComponent(botonInicio2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -767,21 +735,13 @@ public class CompraWindow extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
-
     private void btnEliminarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarProductoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEliminarProductoActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+    private void botonRepartos1EstadoCambiado(com.bymetoo.componentes.BotonBymetooEvent evt) {//GEN-FIRST:event_botonRepartos1EstadoCambiado
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_botonRepartos1EstadoCambiado
 
     /**
      * @param args the command line arguments
@@ -799,6 +759,12 @@ public class CompraWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.bymetoo.componentes.BotonGastos botonGastos1;
+    private com.bymetoo.componentes.BotonInicio botonInicio2;
+    private com.bymetoo.componentes.BotonNuevaCompra botonNuevaCompra1;
+    private com.bymetoo.componentes.BotonPerfil botonPerfil1;
+    private com.bymetoo.componentes.BotonRepartos botonRepartos1;
+    private com.bymetoo.componentes.BotonResumen botonResumen1;
     private javax.swing.JButton btnAjustes;
     private javax.swing.JButton btnAnadirProducto7;
     private javax.swing.JButton btnEditarProducto7;
@@ -806,18 +772,12 @@ public class CompraWindow extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminarProducto7;
     private javax.swing.JButton btnMarcarPagado;
     private javax.swing.JButton btnReasignar;
-    private javax.swing.JButton btnResumen;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnVolver7;
     private javax.swing.JComboBox<String> cmbReasignar;
     private javax.swing.JPanel compraPanel7;
     private javax.swing.JPanel contentPanel7;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JLabel lblCompraFecha7;
     private javax.swing.JLabel lblCompraTitulo7;
     private javax.swing.JLabel lblEstadoCompra7;
