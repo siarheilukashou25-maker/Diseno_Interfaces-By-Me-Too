@@ -23,7 +23,7 @@ Si la ventana no existe, el botón sale deshabilitado.
 ## Estructura
 
 ```
-BymetooBotones/
+componentes/
 ├── src/
 │   ├── com/bymetoo/componentes/
 │   │   ├── BotonBymetoo.java          clase padre (JPanel)

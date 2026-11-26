@@ -4,7 +4,7 @@ Issue #137 (padre #136) · QA: Siarhei · Plan: [`plan-pruebas.md`](plan-pruebas
 
 ## 1. Qué se ha implementado
 
-Tests en `BymetooBotones/test/com/bymetoo/componentes/`:
+Tests en `componentes/test/com/bymetoo/componentes/`:
 
 | Clase | Casos del plan | Tests |
 |---|---|---|
@@ -21,7 +21,7 @@ Todos los accesos a Swing se hacen en el EDT. Los tests que necesitan pantalla s
 
 Los proyectos Ant de NetBeans solo lanzan tests con el runner de JUnit 4. Por eso cada clase de test lleva `@RunWith(JUnitPlatform.class)`: el runner de JUnit 4 la arranca y por debajo se ejecutan los tests de JUnit 5.
 
-Librerías en `BymetooBotones/lib/`:
+Librerías en `componentes/lib/`:
 
 | JAR | Para qué |
 |---|---|
