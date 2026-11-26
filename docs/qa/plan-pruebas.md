@@ -14,7 +14,7 @@ Verificar que el componente propio `BotonBymetoo` y sus 8 botones cumplen la esp
 | `BotonInicio` | `MENU` | `vista.MainView` |
 | `BotonPerfil` | `MENU` | `vista.UserView` |
 | `BotonCompartir` | `CONTORNO_SUAVE` | `vista.GroupView` |
-| `BotonGastos` | `CONTORNO_SUAVE` | `vista.MainView` |
+| `BotonGastos` | `CONTORNO_SUAVE` | `vista.GroupView` |
 | `BotonRepartos` | `CONTORNO` | `vista.RepartosView` |
 | `BotonNuevaCompra` | `CONTORNO` | `vista.CompraWindow` |
 | `BotonResumen` | `CONTORNO` | `vista.ResumenView` |

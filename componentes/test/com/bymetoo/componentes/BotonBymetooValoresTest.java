@@ -68,7 +68,7 @@ public class BotonBymetooValoresTest {
                 datos(BotonInicio::new, "Inicio", EstiloBoton.MENU, "vista.MainView"),
                 datos(BotonPerfil::new, "Perfil", EstiloBoton.MENU, "vista.UserView"),
                 datos(BotonCompartir::new, "Compartir", EstiloBoton.CONTORNO_SUAVE, "vista.GroupView"),
-                datos(BotonGastos::new, "Gastos", EstiloBoton.CONTORNO_SUAVE, "vista.MainView"),
+                datos(BotonGastos::new, "Gastos", EstiloBoton.CONTORNO_SUAVE, "vista.GroupView"),
                 datos(BotonRepartos::new, "Repartos", EstiloBoton.CONTORNO, "vista.RepartosView"),
                 datos(BotonNuevaCompra::new, "Nueva compra", EstiloBoton.CONTORNO, "vista.CompraWindow"),
                 datos(BotonResumen::new, "Resumen", EstiloBoton.CONTORNO, "vista.ResumenView"),
