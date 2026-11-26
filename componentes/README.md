@@ -1,12 +1,12 @@
 # BymetooBotones - Botones personalizados
 
-Proyecto Java con Ant (NetBeans) con los 8 botones personalizados de la app
-Bymetoo. Cada botón es un componente independiente y al pulsarlo cambia de
-view solo.
+Proyecto Java Swing con Ant (NetBeans) que contiene ocho botones personalizados
+de Bymetoo. Cada botón es un componente reutilizable y puede navegar a una
+ventana de la aplicación que lo integre.
 
 ![Estados](docs/estados-componente.png)
 
-| Botón | Abre |
+| Botón | Ventana de destino predeterminada |
 |---|---|
 | `BotonInicio` | `vista.MainView` |
 | `BotonPerfil` | `vista.UserView` |
@@ -17,56 +17,181 @@ view solo.
 | `BotonResumen` | `vista.ResumenView` |
 | `BotonSalir` | `vista.LoginView` |
 
-Si alguno tiene que ir a otra ventana se cambia en *Properties → ventanaDestino*.
-Si la ventana no existe, el botón sale deshabilitado.
+El destino se puede cambiar desde la propiedad `ventanaDestino`. Si la ventana
+indicada no existe en el proyecto consumidor, el botón puede quedar
+deshabilitado al añadirse a la ventana.
 
 ## Estructura
 
-```
 componentes/
 ├── src/
 │   ├── com/bymetoo/componentes/
-│   │   ├── BotonBymetoo.java          clase padre (JPanel)
-│   │   ├── BotonInicio.java ...       los 8 botones
-│   │   ├── BotonInicioBeanInfo.java ...  un BeanInfo por botón
-│   │   ├── BeanInfoBotonBase.java     lo común de los BeanInfo
-│   │   ├── BotonBymetooEvent.java     evento propio
-│   │   ├── BotonBymetooListener.java  listener
-│   │   ├── BotonBymetooAdapter.java   adapter
+│   │   ├── BotonBymetoo.java
+│   │   ├── BotonInicio.java ... (ocho botones)
+│   │   ├── BotonInicioBeanInfo.java ... (un BeanInfo por botón)
+│   │   ├── BeanInfoBotonBase.java
+│   │   ├── BotonBymetooEvent.java
+│   │   ├── BotonBymetooListener.java
+│   │   ├── BotonBymetooAdapter.java
+│   │   ├── AyudaContextual.java
 │   │   └── EstadoBoton, EstiloBoton, TipoIcono, IconoNavegacion
-│   └── iconos/                        iconos de la paleta (16x16 y 32x32)
-├── manifest.mf                        Java-Bean: True de los 8 botones
-├── dist/BymetooBotones.jar            el JAR para usar en la app
-└── docs/                              diagrama UML (.dia y .md)
+│   └── iconos/
+├── manifest.mf
+├── build.xml
+├── dist/BymetooBotones.jar
+└── docs/
 ```
 
 ## Generar el JAR
 
-Abrir el proyecto en NetBeans → clic derecho → *Clean and Build*.
-El JAR sale en `dist/BymetooBotones.jar`.
+Abrir `componentes` como proyecto en NetBeans y ejecutar **Clean and Build**.
+El JAR se genera en `dist/BymetooBotones.jar`.
 
-## Usar los botones en la app
+## Integrar los botones en otra aplicación Swing
 
-1. En el proyecto de la app: *Libraries → Add JAR/Folder* → `BymetooBotones.jar`.
-2. *Tools → Palette → Swing/AWT Components → Add from JAR...* → elegir el JAR →
-   marcar los 8 botones → categoría "Bymetoo".
-3. Arrastrar los botones a las vistas en modo *Design*.
+1. En el proyecto consumidor, abrir **Libraries → Add JAR/Folder**.
+2. Seleccionar `BymetooBotones.jar`.
+3. Para añadirlos a la paleta de NetBeans, abrir **Tools → Palette → Swing/AWT
+   Components → Add from JAR...**.
+4. Seleccionar el JAR, marcar los ocho botones y elegir una categoría.
+5. Arrastrar el componente deseado al formulario en modo **Design**.
 
-## Evento propio
+## Eventos personalizados (DI-3.2)
 
-Cada botón lanza `BotonBymetooEvent`:
+Los botones publican eventos mediante `BotonBymetooListener`. Para suscribirse
+se utiliza `addBotonBymetooListener` y para dejar de recibir notificaciones,
+`removeBotonBymetooListener`.
 
-- `estadoCambiado(e)`: cuando pasa a NORMAL, HOVER, ACTIVO o DESHABILITADO.
-- `botonPulsado(e)`: al pulsarlo, antes de cambiar de ventana. Con
-  `e.cancelarNavegacion()` no cambia.
+Hay dos notificaciones:
 
-En Matisse: clic derecho en el botón → *Events → botonBymetoo → botonPulsado*.
+- **`estadoCambiado(BotonBymetooEvent e)`**: se ejecuta cuando cambia el estado
+  visual/lógico del botón. Los estados posibles son `NORMAL`, `HOVER`, `ACTIVO`
+  y `DESHABILITADO`.
+- **`botonPulsado(BotonBymetooEvent e)`**: se ejecuta al pulsar el botón y
+  antes de que se realice la navegación automática. El listener puede impedir
+  esa navegación llamando a `e.cancelarNavegacion()`.
 
-## Reparto del trabajo
+### Información que contiene el evento
 
-- **Botones (este proyecto)**: la clase con sus atributos (color, tamaño,
-  estado), getters/setters, valores por defecto, el evento con su listener, el
-  cambio de view, los comentarios Javadoc y el diagrama UML.
-- **Feedback visual (Elias)**: cómo se ve cada estado. El `paintComponent` que
-  hay ahora es solo un ejemplo.
-- **Pruebas y generar el Javadoc**: lo hacen otros compañeros.
+`BotonBymetooEvent` extiende `EventObject` y proporciona estos métodos:
+
+| Método | Información |
+|---|---|
+| `getBoton()` | Instancia del botón que originó el evento. |
+| `getTipo()` | `CAMBIO_ESTADO` o `PULSADO`. |
+| `getEstadoAnterior()` | Estado previo al cambio. |
+| `getEstadoNuevo()` | Estado nuevo. |
+| `getVentanaDestino()` | Nombre completo de la clase de la ventana de destino. |
+| `cancelarNavegacion()` | Cancela la navegación automática cuando se llama durante `botonPulsado`. |
+| `isNavegacionCancelada()` | Indica si se ha cancelado la navegación. |
+
+En un evento `PULSADO`, los estados anterior y nuevo reflejan el estado del
+botón en el momento de crear el evento; el dato principal para decidir sobre
+la navegación es `isNavegacionCancelada()`.
+
+### Ejemplo: suscribirse a los dos eventos
+
+```java
+BotonGastos boton = new BotonGastos();
+
+BotonBymetooListener oyente = new BotonBymetooListener() {
+    @Override
+    public void estadoCambiado(BotonBymetooEvent e) {
+        System.out.println("Estado: " + e.getEstadoAnterior()
+                + " -> " + e.getEstadoNuevo());
+    }
+
+    @Override
+    public void botonPulsado(BotonBymetooEvent e) {
+        System.out.println("Se ha pulsado: " + e.getBoton().getTexto());
+        System.out.println("Destino: " + e.getVentanaDestino());
+    }
+};
+
+boton.addBotonBymetooListener(oyente);
+
+// Cuando ya no se necesiten las notificaciones:
+boton.removeBotonBymetooListener(oyente);
+```
+
+### Ejemplo: escuchar solo la pulsación y cancelar la navegación
+
+`BotonBymetooAdapter` implementa los dos métodos sin hacer nada. De este modo
+solo es necesario sobrescribir el callback que interese:
+
+```java
+BotonSalir boton = new BotonSalir();
+
+boton.addBotonBymetooListener(new BotonBymetooAdapter() {
+    @Override
+    public void botonPulsado(BotonBymetooEvent e) {
+        int respuesta = JOptionPane.showConfirmDialog(
+                boton,
+                "¿Seguro que quieres salir?",
+                "Confirmar salida",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (respuesta != JOptionPane.YES_OPTION) {
+            e.cancelarNavegacion();
+        }
+    }
+});
+```
+
+La cancelación debe realizarse dentro de `botonPulsado`, porque el componente
+comprueba el indicador del evento inmediatamente después de notificar a los
+listeners.
+
+### Relación con PropertyChangeListener
+
+Además del evento específico, el cambio de la propiedad `estado` también se
+notifica mediante `PropertyChangeListener`, usando el nombre de propiedad
+`BotonBymetoo.PROP_ESTADO` (`"estado"`). El evento personalizado aporta
+información adicional y agrupa también la notificación de pulsación.
+
+## Ayuda contextual con F1 (DI-3.2)
+
+La clase `AyudaContextual` permite asociar un texto de ayuda a cualquier
+`JComponent`. La tecla F1 muestra un cuadro informativo cuando el componente
+registrado tiene el foco.
+
+```java
+BotonGastos boton = new BotonGastos();
+
+AyudaContextual.instalar(
+        boton,
+        "Ayuda - Gastos",
+        "Este botón abre la pantalla de gastos."
+);
+```
+
+La llamada se puede realizar al crear y configurar el formulario. La ayuda se
+asocia al propio componente mediante `InputMap` y `ActionMap`, utilizando
+`JComponent.WHEN_FOCUSED`; por eso no se muestra al pulsar F1 cuando el foco
+está en otro control. Si se instala de nuevo sobre el mismo componente, se
+actualiza la acción y el texto asociado.
+
+## Propiedades principales
+
+Las propiedades configurables del componente incluyen:
+
+- `texto`: texto que muestra el botón.
+- `ventanaDestino`: nombre completo de la clase de la ventana que abrirá.
+- `navegacionAutomatica`: activa o desactiva la navegación automática.
+- `cerrarVentanaActual`: indica si se cierra la ventana anterior al navegar.
+- `activo`: selecciona visualmente el botón.
+- `iconoPersonalizado`: permite asignar un icono propio.
+- `colorFondo`, `colorHover`, `colorActivo`: colores de fondo según el estado.
+- `colorBorde`, `colorBordeHover`: colores del borde.
+- `colorTexto`, `colorTextoDeshabilitado`: colores del texto.
+- `radioBorde`: radio de las esquinas.
+- `separacionIcono`: distancia entre el icono y el texto.
+- `estado`, `tipoIcono` y `estilo`: propiedades de solo lectura.
+
+## Documentación adicional
+
+La documentación de las clases y métodos públicos se genera mediante Javadoc
+desde el proyecto Ant. La documentación de esta actividad describe la
+suscripción a eventos, el contenido de `BotonBymetooEvent`, la cancelación de
+navegación y la ayuda contextual con F1.
