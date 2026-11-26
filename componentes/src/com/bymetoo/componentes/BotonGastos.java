@@ -3,7 +3,7 @@ package com.bymetoo.componentes;
 /**
  * Botón "Gastos" de Bymetoo.
  * <p>
- * Al pulsarlo abre la pantalla de los gastos (vista.MainView) y cierra la ventana en la que estás.
+ * Al pulsarlo abre la pantalla de los gastos del grupo (vista.GroupView) y cierra la ventana en la que estás.
  * Lleva el icono GASTOS y el estilo CONTORNO_SUAVE.
  * </p>
  *
@@ -21,7 +21,7 @@ public final class BotonGastos extends BotonBymetoo {
     private static final long serialVersionUID = 1L;
 
     /** Ventana a la que va el botón por defecto. */
-    public static final String VENTANA_POR_DEFECTO = "vista.MainView";
+    public static final String VENTANA_POR_DEFECTO = "vista.GroupView";
 
     /**
      * Crea el botón Gastos.
