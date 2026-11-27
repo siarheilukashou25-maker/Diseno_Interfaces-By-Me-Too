@@ -13,7 +13,7 @@ Yo Pablo
 Yo Roberto
 | | Siarhei | Roberto | Elias |
 |--|--|--|--|
-|Nota|  |  |  |
+|Nota|10  |9.5  |10  |
 
 Yo Elías
 | | Pablo | Roberto | Siarhei |
