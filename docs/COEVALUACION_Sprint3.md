@@ -11,9 +11,9 @@ Yo Pablo
 |Nota| 10 | 10 | 10 |
 
 Yo Roberto
-| | Siarhei | Roberto | Elias |
+| | Siarhei | Pablo | Elias |
 |--|--|--|--|
-|Nota|10  |9.5  |10  |
+|Nota|10  |10 |10  |
 
 Yo Elías
 | | Pablo | Roberto | Siarhei |
